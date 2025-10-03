@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Questions & Answers</title>
+    <style>
+        html {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        h1 {
+            margin-top: 25px;
+            color: #2c3e50;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Q.1 What is JavaScript?</h1>
+    <p>JavaScript is a programming language used to make websites interactive, dynamic, and responsive.</p>
+
+    <h1>Q.2 What are JavaScript logical operators?</h1>
+    <p>Logical operators are used to combine or invert boolean values: <code>AND (&&)</code>, <code>OR (||)</code>,
+        <code>NOT (!)</code>
+    </p>
+
+    <h1>Q.3 What is a ternary operator?</h1>
+    <p>A short if-else statement: <code>condition ? valueIfTrue : valueIfFalse</code></p>
+
+    <h1>Q.4 What is hoisting?</h1>
+    <p>Hoisting is JavaScript's behavior of moving variable and function declarations to the top of their scope.</p>
+
+    <h1>Q.5 Define for, while, and do-while loops</h1>
+    <p>
+        <strong>for:</strong> Loop with initialization, condition, increment <br>
+        <strong>while:</strong> Loop while condition is true <br>
+        <strong>do-while:</strong> Executes at least once, then checks condition
+    </p>
+
+    <h1>Q.6 What is a closure? Give an example</h1>
+    <p>Closure is a function that remembers the variables of its outer function even after the outer function has
+        finished execution.
+        Example: <code>function outer(){ let x=10; return function(){ console.log(x); } }</code></p>
+
+    <h1>Q.7 Difference between let, var, and const</h1>
+    <p>
+        <strong>var:</strong> function-scoped, can be redeclared <br>
+        <strong>let:</strong> block-scoped, cannot be redeclared <br>
+        <strong>const:</strong> block-scoped, cannot be redeclared or reassigned
+    </p>
+
+    <h1>Q.8 Difference between function and arrow function</h1>
+    <p>
+        <strong>function:</strong> has its own <code>this</code> <br>
+        <strong>arrow function:</strong> inherits <code>this</code> from parent scope
+    </p>
+
+    <h1>Q.9 Difference between null and undefined</h1>
+    <p>
+        <strong>null:</strong> explicitly assigned empty value <br>
+        <strong>undefined:</strong> variable declared but not assigned
+    </p>
+
+    <h1>Q.10 What is the spread operator?</h1>
+    <p><code>...</code> allows expanding arrays or objects. Example: <code>let arr2=[...arr1];</code></p>
+
+    <h1>Q.11 Difference between callback and callback hell</h1>
+    <p>Callback: function passed as argument.
+        Callback Hell: nested callbacks making code messy.</p>
+
+    <h1>Q.12 Use of charAt(), substring(), includes()</h1>
+    <p>
+        <code>charAt(index)</code>: returns character at index <br>
+        <code>substring(start,end)</code>: returns substring <br>
+        <code>includes(text)</code>: returns true if string contains text
+    </p>
+
+    <h1>Q.13 What are string methods?</h1>
+    <p>Methods to manipulate strings, e.g. <code>toUpperCase()</code>, <code>toLowerCase()</code>, <code>slice()</code>,
+        <code>split()</code>, <code>replace()</code>
+    </p>
+
+    <h1>Q.14 What is a palindrome?</h1>
+    <p>A string or number that reads the same forwards and backwards. Example: "121" or "madam"</p>
+
+    <h1>Q.15 What is an array? Name 10 array methods</h1>
+    <p>
+        Array is a collection of elements.
+        Methods: <code>push, pop, shift, unshift, slice, splice, map, filter, reduce, includes</code>
+    </p>
+
+    <h1>Q.16 Difference between slice() and splice()</h1>
+    <p>
+        <strong>slice(start,end):</strong> returns new array, does not modify original <br>
+        <strong>splice(start,count,newItems):</strong> modifies original array, can add/remove items
+    </p>
+
+    <h1>Q.17 Remove duplicate elements from an array</h1>
+    <p>Use <code>Set</code> or loops. Example: <code>let unique = [...new Set(arr)];</code></p>
+
+    <h1>Q.18 Find first/last/highest number in an array</h1>
+    <p>
+        First: <code>arr[0]</code>, Last: <code>arr[arr.length-1]</code>, Highest: <code>Math.max(...arr)</code>
+    </p>
+
+    <h1>Q.19 Find index of a number in an array</h1>
+    <p><code>arr.indexOf(number)</code></p>
+
+    <h1>Q.20 Print array elements into two arrays alternately</h1>
+    <p>
+        Example:
+        <code>arr=[1,2,3,4]; arr1=[1,3]; arr2=[2,4]</code>
+    </p>
+
+    <h1>Q.21 What is currying in JavaScript?</h1>
+    <p>Currying is transforming a function with multiple arguments into a series of functions with single argument each.
+        Example: <code>f(a)(b) instead of f(a,b)</code></p>
+
+    <h1>Q.22 What are Promises?</h1>
+    <p>Promises handle asynchronous operations, they can be <code>pending, resolved, rejected</code></p>
+
+    <h1>Q.23 Difference between Promise and async/await</h1>
+    <p>
+        Promise: handles async tasks with <code>.then()</code>
+        async/await: syntax sugar for Promises, makes code look synchronous
+    </p>
+
+    <h1>Q.24 Synchronous vs Asynchronous in JS</h1>
+    <p>Synchronous: executes line by line, blocking
+        Asynchronous: executes tasks without blocking, like AJAX, setTimeout</p>
+
+    <h1>Q.25 What is ES6? List some new features</h1>
+    <p>ES6 = ECMAScript 2015
+        Features: let, const, arrow functions, template literals, default parameters, spread/rest, promises, classes</p>
+
+    <h1>Q.26 What is a Higher Order Function (HOC)?</h1>
+    <p>A function that takes another function as argument or returns a function. Example: <code>arr.map(func)</code></p>
+
+</body>
+
+</html>

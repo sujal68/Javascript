@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracker</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #e0f0ff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 250px;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 18px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-blue {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-red {
+            background: #dc3545;
+            color: white;
+        }
+
+        .summary {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .summary div {
+            flex: 1;
+            background: #cce5ff;
+            padding: 8px;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .remove-btn {
+            background: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 5px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>Add Budget</h2>
+            <input type="number" id="budgetInput" placeholder="Budget">
+            <button class="btn-blue" id="setBudgetBtn">Add Budget</button>
+
+            <h2>Add Expense</h2>
+            <input type="text" id="expenseTitle" placeholder="Expense Title">
+            <input type="number" id="expenseAmount" placeholder="Amount">
+            <button class="btn-blue" id="addExpenseBtn">Add Expense</button>
+
+            <button class="btn-red" id="resetBtn">Reset All</button>
+        </div>
+
+        <div class="card" style="flex:1;">
+            <div class="summary">
+                <div>Total Budget: ₹<span id="totalBudget">0</span></div>
+                <div>Total Expenses: ₹<span id="totalExpenses">0</span></div>
+                <div>Budget Left: ₹<span id="remainingBalance">0</span></div>
+            </div>
+
+            <h2>Expense History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Expense Name</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="expenseList"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let totalBudget = localStorage.getItem('totalBudget') || 0;
+        let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+
+        const budgetInput = document.getElementById('budgetInput');
+        const setBudgetBtn = document.getElementById('setBudgetBtn');
+        const expenseTitle = document.getElementById('expenseTitle');
+        const expenseAmount = document.getElementById('expenseAmount');
+        const addExpenseBtn = document.getElementById('addExpenseBtn');
+        const totalBudgetEl = document.getElementById('totalBudget');
+        const totalExpensesEl = document.getElementById('totalExpenses');
+        const remainingBalanceEl = document.getElementById('remainingBalance');
+        const expenseList = document.getElementById('expenseList');
+        const resetBtn = document.getElementById('resetBtn');
+
+        function updateUI() {
+            totalBudgetEl.textContent = totalBudget;
+            let totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
+            totalExpensesEl.textContent = totalExpenses;
+            remainingBalanceEl.textContent = totalBudget - totalExpenses;
+
+            expenseList.innerHTML = '';
+            expenses.forEach(e => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${e.title}</td><td>₹${e.amount}</td>
+                        <td><button class="remove-btn" onclick="removeExpense(${e.id})">Remove</button></td>`;
+                expenseList.appendChild(tr);
+            });
+
+            localStorage.setItem('totalBudget', totalBudget);
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+        }
+
+        function setBudget() {
+            let value = parseFloat(budgetInput.value);
+            if (isNaN(value) || value < 0) { alert('Enter valid budget'); return; }
+            totalBudget = value;
+            budgetInput.value = '';
+            updateUI();
+        }
+
+        function addExpense() {
+            let title = expenseTitle.value.trim();
+            let amount = parseFloat(expenseAmount.value);
+            if (!title || isNaN(amount) || amount < 0) { alert('Enter valid expense'); return; }
+            expenses.push({ id: Date.now(), title, amount });
+            expenseTitle.value = '';
+            expenseAmount.value = '';
+            updateUI();
+        }
+
+        function removeExpense(id) {
+            expenses = expenses.filter(e => e.id !== id);
+            updateUI();
+        }
+
+        function resetAll() {
+            if (!confirm('Are you sure?')) return;
+            totalBudget = 0;
+            expenses = [];
+            localStorage.clear();
+            updateUI();
+        }
+
+        setBudgetBtn.onclick = setBudget;
+        addExpenseBtn.onclick = addExpense;
+        resetBtn.onclick = resetAll;
+
+        updateUI();
+
+    </script>
+</body>
+
+</html>

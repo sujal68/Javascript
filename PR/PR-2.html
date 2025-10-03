@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Salary Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f9;
+            padding: 20px
+        }
+
+        h2 {
+            text-align: center;
+            color: #5a2ecf
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            max-width: 900px;
+            margin: auto
+        }
+
+        .form-box,
+        .result-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            flex: 1
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            text-align: left
+        }
+
+        input {
+            width: 95%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px
+        }
+
+        #calcBtn {
+            background: #2d6cdf;
+            color: #fff
+        }
+
+        #clearBtn {
+            background: #aaa;
+            color: #fff
+        }
+
+        table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse
+        }
+
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #eee
+        }
+
+        td:first-child {
+            text-align: left
+        }
+
+        td:last-child {
+            text-align: right;
+            font-weight: bold
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Salary Calculator</h2>
+    <div class="container">
+        <!-- Left: Form -->
+        <div class="form-box">
+            <label>Job:</label>
+            <input type="text" id="job" placeholder="Web Developer">
+
+            <label>Hours per Day:</label>
+            <input type="number" id="hours" placeholder="e.g. 8">
+
+            <label>Workdays per Week:</label>
+            <input type="number" id="days" placeholder="e.g. 5">
+
+            <label>Gross Monthly Salary ($):</label>
+            <input type="number" id="monthly" placeholder="e.g. 2000">
+
+            <label>Tax Percentage (%):</label>
+            <input type="number" id="tax" placeholder="e.g. 25">
+
+            <label>Overtime Hours per Week:</label>
+            <input type="number" id="otHours" placeholder="e.g. 2">
+
+            <label>Overtime Rate per Hour ($):</label>
+            <input type="number" id="otRate" placeholder="e.g. 80">
+
+            <button id="calcBtn" onclick="calc()">Calculate Salary</button>
+            <button id="clearBtn" onclick="clearForm()">Clear</button>
+        </div>
+
+        <!-- Right: Result -->
+        <div class="result-box">
+            <h3 id="title">Salary Overview</h3>
+            <table id="result"></table>
+        </div>
+    </div>
+
+    <script>
+        function calc() {
+            var job = document.getElementById("job").value;
+            var hours = +document.getElementById("hours").value;
+            var days = +document.getElementById("days").value;
+            var monthly = +document.getElementById("monthly").value;
+            var tax = +document.getElementById("tax").value;
+            var otHours = +document.getElementById("otHours").value;
+            var otRate = +document.getElementById("otRate").value;
+
+            if (monthly <= 0) { alert("Enter valid salary"); return; }
+
+            var daily = monthly / (4 * days);
+            var hourly = daily / hours;
+            var taxDeduct = monthly * (tax / 100);
+            var netMonthly = monthly - taxDeduct;
+            var yearlyNet = netMonthly * 12;
+            var overtime = otHours * otRate * 4; // 4 weeks in month
+            var finalTotal = netMonthly + overtime;
+
+            document.getElementById("title").innerText = "Salary Overview for " + (job || "Employee");
+            document.getElementById("result").innerHTML =
+                "<tr><td>Hourly Salary:</td><td>$" + hourly.toFixed(2) + "</td></tr>" +
+                "<tr><td>Daily Salary:</td><td>$" + daily.toFixed(2) + "</td></tr>" +
+                "<tr><td>Monthly Gross Salary:</td><td>$" + monthly.toFixed(2) + "</td></tr>" +
+                "<tr><td>Tax Deduction:</td><td>-$" + taxDeduct.toFixed(2) + "</td></tr>" +
+                "<tr><td>Monthly Net Salary:</td><td>$" + netMonthly.toFixed(2) + "</td></tr>" +
+                "<tr><td>Yearly Net Salary:</td><td>$" + yearlyNet.toFixed(2) + "</td></tr>" +
+                "<tr><td>Total Overtime Earnings:</td><td>$" + overtime.toFixed(2) + "</td></tr>" +
+                "<tr><td>Total Earnings (Including Overtime):</td><td>$" + finalTotal.toFixed(2) + "</td></tr>";
+        }
+
+        function clearForm() {
+            document.querySelectorAll("input").forEach(el => el.value = "");
+            document.getElementById("result").innerHTML = "";
+            document.getElementById("title").innerText = "Salary Overview";
+        }
+    </script>
+</body>
+
+</html>

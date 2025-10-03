@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Front-end Designs Q&A</title>
+    <style>
+        html {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        h1 {
+            margin-top: 25px;
+            color: #2c3e50;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Q.1 Explain the difference between a block-level and inline element, and how can you force one to behave like
+        the other?</h1>
+    <p>
+        <strong>Block-level elements:</strong> Ye full width lete hain aur nayi line se start hote hain. Examples:
+        <code>&lt;div&gt;</code>,
+        <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>.
+        <br>
+        <strong>Inline elements:</strong> Ye sirf jitni width chahiye utni lete hain aur same line me hi rehte hain.
+        Examples:
+        <code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;strong&gt;</code>.
+        <br>
+        <strong>Force one to behave like the other:</strong> CSS ka <code>display</code> property use karo. For example,
+        <code>display: inline;</code> ya <code>display: block;</code>.
+    </p>
+
+    <h1>Q.2 What are meta tags and why are they important for websites?</h1>
+    <p>
+        Meta tags page ke bare me browser aur search engines ko info dete hain.
+        Examples: <code>&lt;meta charset="UTF-8"&gt;</code>,
+        <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code>.
+        Ye SEO, responsiveness, aur proper page rendering ke liye important hain.
+    </p>
+
+    <h1>Q.3 What are void elements? Can you give a few examples?</h1>
+    <p>
+        Void elements wo HTML elements hain jinke <strong>closing tag nahi hote</strong>. Examples:
+        <code>&lt;br&gt;</code>, <code>&lt;hr&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;input&gt;</code>.
+    </p>
+
+    <h1>Q.4 What is the box model in CSS? Can you draw and explain it?</h1>
+    <p>
+        Box model har element ke layout ko 4 layers me describe karta hai:
+        <strong>Content → Padding → Border → Margin</strong>.
+        Content: actual text/image, Padding: border ke andar space, Border: element ka edge, Margin: element ke bahar
+        space.
+    </p>
+
+    <h1>Q.5 What are the differences between HTML4 and HTML5?</h1>
+    <p>
+        - HTML5 me semantic elements support hote hain like <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>,
+        <code>&lt;section&gt;</code>.
+        - Audio, video, canvas, localStorage, aur offline capabilities available hain.
+        - HTML4 me ye modern features nahi hote.
+        - HTML5 mobile aur responsive design ke liye better hai.
+    </p>
+
+    <h1>Q.6 How does the target="_blank" attribute in an anchor tag work? What are its security implications?</h1>
+    <p>
+        <code>target="_blank"</code> link ko new tab me open karta hai.
+        Security risk: new page <code>window.opener</code> access kar sakta hai aur original page ko redirect kar sakta
+        hai.
+        Fix: <code>rel="noopener noreferrer"</code> use karo isse avoid karne ke liye.
+    </p>
+
+    <h1>Q.7 What is Flex and Grid in CSS?</h1>
+    <p>
+        <strong>Flex:</strong> 1D layout (row ya column), items ko horizontal ya vertical align karta hai.
+        <strong>Grid:</strong> 2D layout (rows + columns), complex layouts ke liye use hota hai.
+    </p>
+
+    <h1>Q.8 How many ways can you add CSS to a project?</h1>
+    <p>
+        1. Inline CSS: <code>&lt;div style="color:red"&gt;</code>
+        2. Internal CSS: <code>&lt;style&gt;</code> tag use karke
+        3. External CSS: <code>&lt;link rel="stylesheet" href="style.css"&gt;</code>
+    </p>
+
+    <h1>Q.9 What is the Bootstrap grid system, and how does it work?</h1>
+    <p>
+        Bootstrap grid system ek <strong>12-column responsive layout</strong> hai.
+        Content ko <code>&lt;div class="row"&gt;</code> me wrap karo aur columns jaise
+        <code>&lt;div class="col-6"&gt;</code> 50% width ke liye use karo.
+        Columns automatically different screen sizes ke liye adjust ho jate hain.
+    </p>
+
+    <h1>Q.10 How to write display: flex using Bootstrap?</h1>
+    <p>
+        Container element pe <code>class="d-flex"</code> use karo.
+        Example: <code>&lt;div class="d-flex"&gt;...&lt;/div&gt;</code>
+    </p>
+
+</body>
+
+</html>

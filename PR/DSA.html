@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Questions & Answers</title>
+    <style>
+        html {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        h1 {
+            margin-top: 25px;
+            color: #2c3e50;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Q.1 What is DSA? Explain features of DSA</h1>
+    <p>
+        DSA (Data Structures and Algorithms) is a way to organize data efficiently and solve problems quickly.
+        <br>
+        <strong>Features:</strong>
+    <ul>
+        <li>Efficient data storage</li>
+        <li>Fast searching and sorting</li>
+        <li>Helps in solving complex problems</li>
+        <li>Reusable and structured code</li>
+    </ul>
+    </p>
+
+    <h1>Q.2 What is Array and how many types of Array?</h1>
+    <p>
+        Array is a collection of elements of the same type stored in contiguous memory.
+        <br>
+        <strong>Types of Arrays:</strong>
+    <ul>
+        <li>1D Array (single row)</li>
+        <li>2D Array (matrix / rows & columns)</li>
+        <li>Multi-dimensional Array (3D or more)</li>
+    </ul>
+    </p>
+
+    <h1>Q.3 What is String? Definition and Syntax</h1>
+    <p>
+        String is a sequence of characters.
+        <strong>Syntax:</strong>
+        <br>
+        <code>char str[] = "Hello";</code> <br>
+        In C++: <code>string str = "Hello";</code>
+    </p>
+
+    <h1>Q.4 WAP to remove duplicate elements in a given array</h1>
+    <p>
+        <strong>Logic:</strong> Use loops to check duplicates and store unique elements in a new array.
+        Example (C++ style):
+    </p>
+    <pre>
+<code>
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int arr[] = {1, 2, 2, 3, 4, 4};
+    int n = 6;
+
+    int temp[6]; // new array to store unique elements
+    int k = 0;   // index for temp
+
+    for (int i = 0; i &lt; n; i++) {
+        bool found = false;
+
+        // check if arr[i] already exists in temp
+        for (int j = 0; j &lt; k; j++) {
+            if (arr[i] == temp[j]) {
+                found = true;
+                break;
+            }
+        }
+
+        // if not found, add to temp
+        if (!found) {
+            temp[k] = arr[i];
+            k++;
+        }
+    }
+
+    cout &lt;&lt; "Array after removing duplicates: ";
+    for (int i = 0; i &lt; k; i++) {
+        cout &lt;&lt; temp[i] &lt;&lt; " ";
+    }
+
+    return 0;
+}
+</code>
+</pre>
+
+
+    <h1>Q.5 WAP to find Occurrence of each element in the array</h1>
+    <p>
+        <strong>Logic:</strong> Use a map or nested loops to count frequency.
+        Example: <br>
+        <code>
+arr[] = {1,2,2,3};<br>
+1 → 1 time<br>
+2 → 2 times<br>
+3 → 1 time
+        </code>
+    </p>
+
+    <h1>Q.6 WAP to remove or delete elements in an array from a given position or values</h1>
+    <p>
+        <strong>Logic:</strong> Shift elements left from the position to remove element.
+        Example (C++ style):
+        <br>
+        <code>
+int pos = 2; // index to remove<br>
+for(int i=pos;i<n-1;i++) arr[i]=arr[i+1];<br>
+n--;
+        </code>
+    </p>
+
+    <h1>Q.7 WAP to insert elements in an array from a given position</h1>
+    <p>
+        <strong>Logic:</strong> Shift elements right and place new element at given position.
+        Example:
+        <br>
+        <code>
+int pos = 2, x = 10;<br>
+for(int i=n-1;i>=pos;i--) arr[i+1]=arr[i];<br>
+arr[pos]=x;<br>
+n++;
+        </code>
+    </p>
+
+    <h1>Q.8 WAP to sort the array (ascending/descending)</h1>
+    <p>
+        <strong>Logic:</strong> Use bubble sort / selection sort / built-in sort.
+        Example (ascending):
+        <br>
+        <code>
+for(int i=0;i<n-1;i++) {<br>
+&nbsp;&nbsp;for(int j=0;j<n-i-1;j++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if(arr[j] > arr[j+1]) swap(arr[j],arr[j+1]);<br>
+&nbsp;&nbsp;}<br>
+}
+        </code>
+    </p>
+
+</body>
+
+</html>

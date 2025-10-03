@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f4f4f9;
+        }
+
+        .main {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .box {
+            flex: 1;
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 14px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        input {
+            padding: 5px;
+            margin: 5px 0;
+            width: 90%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ccc;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            background: #007bff;
+            color: #fff;
+            cursor: pointer;
+            margin: 5px 0;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .total-box {
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        .total-box input {
+            width: 80px;
+            text-align: right;
+        }
+
+        .remove-btn {
+            background: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .remove-btn:hover {
+            background: #a71d2a;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main">
+        <!-- Input Section -->
+        <div class="box">
+            <h2>INVOICE</h2>
+            <div>
+                <label>Customer</label>
+                <input type="text" id="customer" placeholder="Enter Customer Name" oninput="updatePreview()">
+                <label>Inv. No</label>
+                <input type="text" id="invNo" value="1001" oninput="updatePreview()"><br>
+                <label>Address</label>
+                <input type="text" id="address" placeholder="Full Address" oninput="updatePreview()">
+                <label>Inv. Date</label>
+                <input type="date" id="invDate" oninput="updatePreview()">
+                <label>City</label>
+                <input type="text" id="city" placeholder="City Name" oninput="updatePreview()">
+            </div>
+
+            <table id="itemTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Particular</th>
+                        <th>Qty</th>
+                        <th>Rate</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <button class="btn" onclick="addRow()">+ Add Item</button>
+
+            <div class="total-box">
+                <div>Total <input type="text" id="total" readonly value="0"></div>
+                <div>GST <input type="text" id="gst" readonly value="0"></div>
+                <div>Net Amt <input type="text" id="netAmt" readonly value="0"></div>
+            </div>
+        </div>
+
+        <!-- Output Section (Preview Only) -->
+        <div class="box" id="printArea">
+            <h2>INVOICE</h2>
+            <p><b>Customer:</b> <span id="pCustomer"></span>
+                <span style="float:right"><b>Inv. No:</b> <span id="pInvNo"></span></span>
+            </p>
+            <p><b>Address:</b> <span id="pAddress"></span>
+                <span style="float:right"><b>Inv. Date:</b> <span id="pInvDate"></span></span>
+            </p>
+            <p><b>City:</b> <span id="pCity"></span></p>
+
+            <table id="pItemTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Particular</th>
+                        <th>Qty</th>
+                        <th>Rate</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div class="total-box">
+                <div>Total <span id="pTotal">0</span></div>
+                <div>GST <span id="pGst">0</span></div>
+                <div>Net Amt <span id="pNetAmt">0</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addRow() {
+            let table = document.querySelector("#itemTable tbody");
+            let rowCount = table.rows.length + 1;
+            let row = table.insertRow();
+            row.innerHTML = `
+      <td>${rowCount}</td>
+      <td><input type="text" class="particular" value="Item ${rowCount}" oninput="updateCalc()"></td>
+      <td><input type="number" class="qty" value="1" min="1" oninput="updateCalc()"></td>
+      <td><input type="number" class="rate" value="0" min="0" oninput="updateCalc()"></td>
+      <td><input type="text" class="amount" readonly></td>
+      <td><button class="remove-btn" onclick="removeRow(this)">X</button></td>
+    `;
+            updateCalc();
+        }
+
+        function removeRow(btn) {
+            let row = btn.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            updateCalc();
+        }
+
+        function updateCalc() {
+            let qty = document.querySelectorAll(".qty");
+            let rate = document.querySelectorAll(".rate");
+            let amount = document.querySelectorAll(".amount");
+
+            let total = 0;
+            for (let i = 0; i < qty.length; i++) {
+                let q = parseFloat(qty[i].value) || 0;
+                let r = parseFloat(rate[i].value) || 0;
+                let amt = q * r;
+                amount[i].value = amt;
+                total += amt;
+            }
+
+            let gst = 25; // fixed (jaise image me)
+            let net = total + gst;
+
+            document.getElementById("total").value = total.toFixed(2);
+            document.getElementById("gst").value = gst.toFixed(2);
+            document.getElementById("netAmt").value = net.toFixed(2);
+
+            updatePreview(total, gst, net);
+        }
+
+        function updatePreview(total = 0, gst = 0, net = 0) {
+            // Customer info
+            document.getElementById("pCustomer").innerText = document.getElementById("customer").value;
+            document.getElementById("pInvNo").innerText = document.getElementById("invNo").value;
+            document.getElementById("pAddress").innerText = document.getElementById("address").value;
+            document.getElementById("pInvDate").innerText = document.getElementById("invDate").value;
+            document.getElementById("pCity").innerText = document.getElementById("city").value;
+
+            // Items
+            let tbody = document.querySelector("#pItemTable tbody");
+            tbody.innerHTML = "";
+            let rows = document.querySelectorAll("#itemTable tbody tr");
+            rows.forEach((row, i) => {
+                let name = row.querySelector(".particular").value;
+                let qty = row.querySelector(".qty").value;
+                let rate = row.querySelector(".rate").value;
+                let amt = row.querySelector(".amount").value;
+                tbody.innerHTML += `<tr>
+        <td>${i + 1}</td>
+        <td>${name}</td>
+        <td>${qty}</td>
+        <td>${rate}</td>
+        <td>${amt}</td>
+      </tr>`;
+            });
+
+            // Totals
+            document.getElementById("pTotal").innerText = document.getElementById("total").value;
+            document.getElementById("pGst").innerText = document.getElementById("gst").value;
+            document.getElementById("pNetAmt").innerText = document.getElementById("netAmt").value;
+        }
+    </script>
+
+</body>
+
+</html>

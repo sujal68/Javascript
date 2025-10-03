@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logical Questions JS Programs</title>
+    <style>
+        html {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        h1 {
+            margin-top: 25px;
+            color: #2c3e50;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        pre {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        input {
+            margin: 5px 0;
+        }
+
+        button {
+            margin-bottom: 15px;
+            padding: 5px 10px;
+        }
+
+        .output {
+            margin: 5px 0 15px 0;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>1. What is a natural number?</h1>
+    <p>Natural numbers are positive integers starting from 1. Example: 1,2,3,...</p>
+    <p>Program to print first 10 natural numbers:</p>
+    <pre>
+for(let i=1; i<=10; i++){
+    console.log(i);
+}
+    </pre>
+
+    <h1>2. What is a rational number?</h1>
+    <p>A rational number is a number that can be expressed as <strong>p/q</strong> where p and q are integers and q ≠ 0.
+    </p>
+
+    <h1>3. Swap two numbers without third variable</h1>
+    <p>Program:</p>
+    <pre>
+let a = 5, b = 10;
+a = a + b;
+b = a - b;
+a = a - b;
+console.log(a, b); // a=10, b=5
+    </pre>
+
+    <h1>4. Swap two numbers with third variable</h1>
+    <pre>
+let a = 5, b = 10, temp;
+temp = a;
+a = b;
+b = temp;
+console.log(a, b); // a=10, b=5
+    </pre>
+
+    <h1>5. Sum of digits of a number</h1>
+    <input type="number" id="sumDigitInput" placeholder="Enter number">
+    <button onclick="sumOfDigits()">Calculate Sum of Digits</button>
+    <div class="output" id="sumDigitOutput"></div>
+    <pre>
+        function sumOfDigits() {
+            let num = document.getElementById('sumDigitInput').value;
+            let sum = 0;
+            let n = Number(num);
+            while (n > 0) {
+                sum += n % 10;
+                n = Math.floor(n / 10);
+            }
+            document.getElementById('sumDigitOutput').innerHTML = "Sum of digits: " + sum;
+        }
+    </pre>
+
+    <h1>6. Reverse a number</h1>
+    <div class="output" id="reverseOutput"></div>
+    <pre>
+        function reverseNumber() {
+            let n = Number(document.getElementById('reverseInput').value);
+            let rev = 0;
+            while (n > 0) {
+                rev = rev * 10 + n % 10;
+                n = Math.floor(n / 10);
+            }
+            document.getElementById('reverseOutput').innerHTML = "Reversed Number: " + rev;
+        }
+    </pre>
+
+    <h1>7. Check Palindrome number</h1>
+    <input type="number" id="palindromeInput" placeholder="Enter number">
+    <button onclick="checkPalindrome()">Check</button>
+    <div class="output" id="palindromeOutput"></div>
+    <pre>
+        function checkPalindrome() {
+            let num = document.getElementById('palindromeInput').value;
+            let reversed = num.split('').reverse().join('');
+            let res = (num == reversed) ? "Yes, Palindrome" : "Not Palindrome";
+            document.getElementById('palindromeOutput').innerHTML = res;
+        }
+    </pre>
+
+    <h1>8. Check Prime number</h1>
+    <input type="number" id="primeInput" placeholder="Enter number">
+    <button onclick="checkPrime()">Check Prime</button>
+    <div class="output" id="primeOutput"></div>
+    <pre>
+        function checkPrime() {
+            let n = Number(document.getElementById('primeInput').value);
+            if (n <= 1) {
+                document.getElementById('primeOutput').innerHTML = "Not Prime";
+                return;
+            }
+            let isPrime = true;
+            for (let i = 2; i <= Math.sqrt(n); i++) {
+                if (n % i == 0) {
+                    isPrime = false;
+                    break;
+                }
+            }
+            document.getElementById('primeOutput').innerHTML = isPrime ? "Prime" : "Not Prime";
+        }
+    </pre>
+
+    <h1>9. Fibonacci Series</h1>
+    <input type="number" id="fibInput" placeholder="Enter n">
+    <button onclick="fibonacciSeries()">Print Fibonacci</button>
+    <div class="output" id="fibOutput"></div>
+    <pre>
+        function fibonacciSeries() {
+            let n = Number(document.getElementById('fibInput').value);
+            let a = 0, b = 1;
+            let series = [];
+            for (let i = 1; i <= n; i++) {
+                series.push(a);
+                let next = a + b;
+                a = b;
+                b = next;
+            }
+            document.getElementById('fibOutput').innerHTML = series.join(', ');
+        }
+    </pre>
+
+    <h1>10. Factorial of a number</h1>
+    <input type="number" id="factInput" placeholder="Enter number">
+    <button onclick="factorialNumber()">Factorial</button>
+    <div class="output" id="factOutput"></div>
+    <pre>
+        function factorialNumber() {
+            let n = Number(document.getElementById('factInput').value);
+            let fact = 1;
+            for (let i = 2; i <= n; i++) {
+                fact *= i;
+            }
+            document.getElementById('factOutput').innerHTML = "Factorial: " + fact;
+        }
+    </pre>
+
+    <h1>11. Check Armstrong number</h1>
+    <input type="number" id="armstrongInput" placeholder="Enter number">
+    <button onclick="checkArmstrong()">Check Armstrong</button>
+    <div class="output" id="armstrongOutput"></div>
+    <pre>
+        function checkArmstrong() {
+            let num = Number(document.getElementById('armstrongInput').value);
+            let sum = 0;
+            let n = num;
+            let digits = n.toString().length;
+            while (n > 0) {
+                sum += Math.pow(n % 10, digits);
+                n = Math.floor(n / 10);
+            }
+            let res = (sum === num) ? "Yes, Armstrong" : "Not Armstrong";
+            document.getElementById('armstrongOutput').innerHTML = res;
+        }
+    </pre>
+
+    <h1>12. Sum of first and last digits of a number</h1>
+    <input type="number" id="firstLastInput" placeholder="Enter number">
+    <button onclick="sumFirstLast()">Sum</button>
+    <div class="output" id="firstLastOutput"></div>
+    <pre>
+        function sumFirstLast() {
+            let num = document.getElementById('firstLastInput').value;
+            let first = Number(num[0]);
+            let last = Number(num[num.length - 1]);
+            document.getElementById('firstLastOutput').innerHTML = "Sum: " + (first + last);
+        }
+    </pre>
+
+    <h1>13. Sum of middle digits of a number</h1>
+    <input type="number" id="middleInput" placeholder="Enter number">
+    <button onclick="sumMiddle()">Sum Middle</button>
+    <div class="output" id="middleOutput"></div>
+    <pre>
+        function sumMiddle() {
+            let num = document.getElementById('middleInput').value;
+            if (num.length <= 2) {
+                document.getElementById('middleOutput').innerHTML = "No middle digits";
+                return;
+            }
+            let middleDigits = num.slice(1, -1);
+            let sum = 0;
+            for (let digit of middleDigits) sum += Number(digit);
+            document.getElementById('middleOutput').innerHTML = "Sum of middle digits: " + sum;
+        }
+    </pre>
+
+    <h1>14. Print table of a number</h1>
+    <input type="number" id="tableInput" placeholder="Enter number">
+    <button onclick="printTable()">Print Table</button>
+    <div class="output" id="tableOutput"></div>
+    <pre>
+        function printTable() {
+            let n = Number(document.getElementById('tableInput').value);
+            let result = [];
+            for (let i = 1; i <= 10; i++) {
+                result.push(`${n}*${i}=${n * i}`);
+            }
+            document.getElementById('tableOutput').innerHTML = result.join('<br>');
+        }
+    </pre>
+
+</body>
+
+</html>
